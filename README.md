@@ -68,6 +68,6 @@ Stand des Tests: Version 0.12.0 wurde auf einem Xiaomi 2201123G mit Android 15/H
 
 ## Lizenz, Datenschutz und Veröffentlichung
 
-BatteryNG, einschließlich des selbst erstellten Launcher-Icons, steht unter [Apache-2.0](LICENSE). Die Herkunft der Grafik ist unter [assets/README.md](assets/README.md) beschrieben. Der [Quellcode](https://github.com/g3orgs/BatteryNG) ist für eine öffentliche Veröffentlichung vorgesehen. Die [Datenschutzhinweise](PRIVACY.md) erläutern die optionalen Berechtigungen und lokalen Verlaufsdaten.
+BatteryNG, einschließlich des selbst erstellten Launcher-Icons, steht unter [Apache-2.0](LICENSE). Die Herkunft der Grafik ist unter [assets/README.md](assets/README.md) beschrieben. Der [Quellcode](https://github.com/g3orgs/BatteryNG) ist öffentlich. Die [Datenschutzhinweise](PRIVACY.md) erläutern die optionalen Berechtigungen und lokalen Verlaufsdaten. Ein [F-Droid-Einreichungsentwurf](docs/fdroid-submission.md) enthält die Build-Metadaten.
 
 `dist/` enthält lokal gebaute Debug-APKs und `outputs/` interne Test- und Referenzdateien. Beide Ordner sind vom öffentlichen Quellstand ausgeschlossen. F-Droid erstellt und signiert die veröffentlichte APK aus einem getaggten Quellstand; die lokale Debug-APK ist nur zum Testen.
