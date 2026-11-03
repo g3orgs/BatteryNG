@@ -1,6 +1,8 @@
 Categories:
   - System
 License: Apache-2.0
+AuthorName: g3orgs
+AuthorWebSite: https://github.com/g3orgs
 SourceCode: https://github.com/g3orgs/BatteryNG
 IssueTracker: https://github.com/g3orgs/BatteryNG/issues
 RepoType: git
