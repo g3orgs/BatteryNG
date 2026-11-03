@@ -1,38 +1,34 @@
-# BatteryNG 0.12.0
+# BatteryNG
 
-Kleine Android-App zur Live-Anzeige des **Netto-Akkustroms** und der Apps mit dem höchsten geschätzten Akkuverbrauch. Für die Rangliste sind **letzte 24 Stunden** oder **seit letzter erkannter Vollladung** wählbar; die Anzahl ist von 1 bis 10 einstellbar. Ein positiver Stromwert bedeutet Ladung, ein negativer Entladung.
+<img src="fastlane/metadata/android/en-US/images/icon.png" alt="BatteryNG app icon" width="128">
 
-## Was diese Version macht
+Watch the current flowing into or out of your Android battery, live. BatteryNG is open source, works offline, and keeps its optional usage history on your device.
 
-- Liest `BatteryManager.BATTERY_PROPERTY_CURRENT_NOW` einmal pro Sekunde, solange die App im Vordergrund ist.
-- Nutzt `BATTERY_PROPERTY_CURRENT_AVERAGE` als gekennzeichneten Fallback, wenn der Momentanwert nicht unterstützt wird.
-- Rechnet die von Android gelieferten Mikroampere in Milliampere um. `0` ist ein gültiger Wert; `Long.MIN_VALUE` bedeutet nicht unterstützt.
-- Im Zahnrad-Menü lässt sich die Strom-Einheit auf mA oder A einstellen. Hauptwert, Min/Max und schwebende Anzeige verwenden dieselbe Auswahl. mA erscheint ohne Tausendertrennzeichen (`+1318 mA`), A mit drei Dezimalstellen (`+1,318 A` bei deutscher Sprache). Die App-Verbrauchswerte bleiben in mAh, da sie eine andere Größe darstellen.
-- Im Zahnrad-Menü lässt sich die Stromrichtung auf „Automatisch“, „Android-Standard“ oder „Vorzeichen umkehren“ stellen. Die automatische Erkennung vergleicht mehrere zeitlich getrennte Momentanwerte nur bei abgezogenem Stecker und Android-Status „Entlädt“. Bei Geräten mit vertauschtem Vorzeichen werden Hauptwert, Farbe, Balken, Smiley, Min/Max und Overlay gemeinsam korrigiert. Bis zur ersten sicheren Erkennung gilt der Android-Standard; „Vorzeichen umkehren“ wirkt sofort.
-- Der aufgeräumte Startbildschirm zeigt Live-Wert, Richtung, dynamisches Akkusymbol mit Füllstand, Steckersymbol und optional App-Verbrauch. Messquelle und weitere Optionen liegen im Zahnrad-Menü.
-- Das neue Batterie-Messinstrument-Icon ist als normales, rundes und adaptives Android-Launcher-Icon eingebunden. Die [generierte Vorlage](assets/BatteryNG-icon-master.png) und ihr [Prompt](assets/BatteryNG-icon-prompt.txt) liegen unter `assets/`.
-- Die Stromkarte färbt sich bei negativem Netto-Akkustrom korallrot und bei positivem Strom smaragdgrün. Ein animierter Balken mit fünf Segmenten je Seite läuft bei Entladung nach links und bei Ladung nach rechts. Min/Max gelten für die aktuelle App-Sitzung.
-- Links oben in der Stromkarte zeigt ein Smiley bei positivem Ladestrom eine grobe Einordnung: unter 400 mA rot und traurig, 400–999 mA orange und neutral, 1000–1499 mA gelb und leicht lächelnd, 1500–1999 mA hellgrün und freundlich, ab 2000 mA mintgrün und lachend. Ohne positiven Ladestrom bleibt der Smiley verborgen. Die Stufen verwenden den Netto-Akkustrom unabhängig von der gewählten Einheit mA oder A.
-- Temperatur und verfügbare Akkudetails stehen in der Hauptansicht: Status, Anschluss, Füllstand, Zustand, Ladezyklen, Technologie, Kapazität, Spannung sowie Geräteangaben. Durch Tippen auf „Akku-Details“ lässt sich die Karte ein- und ausklappen; im Zahnrad-Menü kann sie vollständig ausgeblendet werden. Nicht verfügbare Werte werden als unbekannt angezeigt; die exakte maximale Akkukapazität bietet Android der App nicht verlässlich an.
-- Die App-Verbrauchsliste lässt sich durch Tippen auf ihre Überschrift ein- und ausklappen oder im Zahnrad-Menü vollständig ausblenden. Die Verlaufserfassung läuft weiter, damit beim erneuten Einblenden Messpunkte vorhanden sind.
-- Im Zahnrad-Menü sind Deutsch, Englisch oder Systemsprache sowie helles, dunkles oder Systemdesign wählbar.
-- Im Zahnrad-Menü lässt sich eine kleine Stromanzeige über Launcher und anderen Apps starten oder stoppen. Sie liest den Wert alle zwei Sekunden und zeigt nur mA und bei Stromanschluss den Stecker.
-- Solange BatteryNG geöffnet ist, lässt sich die schwebende Anzeige verschieben. Außerhalb der App bleibt sie an der gewählten Position fixiert und lässt Berührungen durch.
-- Im Zahnrad-Menü lässt sich die Anzeige um 0°, 90°, 180° oder 270° drehen und auf „nur beim Aufladen zeigen“ einstellen. Ohne Stecker bleibt sie dann verborgen und erscheint beim Anschließen wieder.
-- Über „Anzeige anpassen“ im Zahnrad-Menü sind Schriftgröße, Schriftfarbe, rechteckige Hintergrundfarbe und deren Deckkraft einstellbar. Bei 0 % Deckkraft ist der Hintergrund unsichtbar.
-- Im unteren Bereich stehen die konfigurierbaren Top 1 bis Top 10 Apps mit Icon, Name und geschätzten mAh. Die App zeigt den gewählten Zeitraum, erfasste Dauer, Messlücken und den Stand der Auswertung an.
+[Download the APK from GitHub Releases](https://github.com/g3orgs/BatteryNG/releases) · [Privacy](PRIVACY.md) · [License](LICENSE)
 
-Der Live-Wert ist **kein USB-Eingangsstrom**. Die in den Akku-Details gezeigte Spannung ist die **Akkuspannung**, nicht die Spannung am USB-Anschluss. Aus dem Netto-Akkustrom lässt sich weder die USB-Eingangsspannung noch ein aktiver Power-Delivery-Modus zuverlässig ableiten. Android stellt einer normalen App dafür keine einheitliche öffentliche Schnittstelle bereit; gerätespezifische USB-/Type-C-Systemdateien können über ADB ausgelesen werden, waren auf dem Pixel 6 Pro aber aus der App nicht zugänglich. Für die tatsächliche Eingangsleistung empfiehlt sich ein USB-C-Leistungsmesser. Grün bedeutet positiven Netto-Akkustrom; Android liefert der App keinen verlässlichen, einheitlichen Schnelllade-Status. Die Messgenauigkeit und Aktualisierungsrate hängen vom Gerät und seiner Firmware ab. Die Hauptansicht misst nur im Vordergrund; die vom Nutzer eingeschaltete schwebende Anzeige nutzt einen Vordergrunddienst. Android verlangt dafür die Freigabe **„Über anderen Apps einblenden“**. Ein echtes Launcher-Widget ist dies nicht: Die Anzeige bleibt auch über anderen Apps sichtbar.
+## English
 
-Androids Soll-Konvention lautet: positiver Akkustrom beim Laden, negativer beim Entladen. Einzelne Geräte können ein vertauschtes Vorzeichen liefern; ein [dokumentierter Xiaomi-Mi-8-Fall](https://github.com/MatteCarra/AccA/issues/27) zeigt einen negativen Rohwert bei „Charging“. Der Steckerstatus kommt separat vom Strommesswert. Ein negativer Wert **mit** angeschlossenem Kabel beweist allein keine falsche Polarität, weil der Akku bei schwacher Stromversorgung oder hoher Last tatsächlich entladen werden kann. Die automatische Korrektur nutzt deshalb nur stabile Werte **ohne** Kabel. Androids [BatteryManager-Referenz](https://developer.android.com/reference/android/os/BatteryManager) und [Health-HAL-Anforderungen](https://source.android.com/docs/core/perf/health/implementation-2-1) beschreiben die Vorzeichenkonvention.
+### What you see
 
-Die Rangliste beruht auf von Android geschätzten **Akkuverbrauchswerten pro UID**, nicht auf Bildschirmzeit. BatteryNG speichert Messpunkte lokal im privaten App-Speicher und benötigt kein Netzwerk. Es misst beim Öffnen der App und plant einen regelmäßigen Hintergrundjob im Abstand von 15 Minuten; Android kann dessen Ausführung verschieben. Die Liste entsteht nach mindestens zwei Messpunkten. Nach Datenlücken, einem Zähler-Reset, einer Neuinstallation oder dem Löschen der App-Daten lässt sich die Vergangenheit nicht vollständig rekonstruieren. Die Rangliste berücksichtigt auch Apps im Arbeitsprofil. Werte für gemeinsam genutzte UIDs können nicht sicher einer einzelnen App zugeschrieben werden. Einzelheiten stehen in [docs/feature-top3-24h.md](docs/feature-top3-24h.md).
+- **Live battery current:** positive values mean the battery is charging; negative values mean it is discharging. The plug icon shows when external power is connected.
+- **Clear visual feedback:** a left or right moving bar, battery level, temperature, and session minimum and maximum. Tap **Battery details** to expand or collapse the available Android battery information.
+- **Optional floating display:** keep the current visible over the launcher and other apps. While BatteryNG is open you can drag it into place; you can also rotate it, change its text and background, adjust transparency, or show it only while plugged in.
+- **Optional app usage list:** see the top 1–10 apps by *estimated* battery use over the last 24 hours or since the last detected full charge (plugged in and above 96%). Tap the heading to collapse the list, or hide it in Settings.
+- **Your preferences:** choose mA or A, English or German, light or dark theme, and automatic or manual current polarity correction for devices that report the sign backwards.
 
-Für „seit letzter Vollladung“ gilt ein angeschlossener Akku mit **mehr als 96 %** als voll. BatteryNG speichert den erkannten Zeitpunkt und erfasst den Verbrauch ab dort; beim ersten Start mit bereits vollem Akku beginnt die Erfassung erst ab diesem Start. Ein kurzer Ladevorgang kann unerkannt bleiben, wenn die App samt Overlay beendet ist und Android den Hintergrundjob erst später ausführt. Die 24-Stunden-Ansicht bleibt von diesem Lade-Marker unabhängig.
+<img src="fastlane/metadata/android/de-DE/images/phoneScreenshots/1.png" alt="BatteryNG main screen showing live current and battery details" width="300">
 
-## Einmalige Freigabe für die App-Auswertung
+### Install and use
 
-Für die App-Auswertung braucht BatteryNG auf dem Testgerät erweiterten Zugriff auf Androids Akku-Statistik und den Nutzungszugriff. Nach der Installation und bei verbundenem Gerät einmal am Computer ausführen:
+1. Download the current APK from [Releases](https://github.com/g3orgs/BatteryNG/releases) and install it on Android 6.0 or newer. Android may ask you to allow installation from the app you used to download it.
+2. Open BatteryNG. Live current and battery details work immediately, without ADB or special access.
+3. Open the **gear icon** for units, language, theme, polarity, the floating display, and optional sections on the home screen. Android's **Display over other apps** permission is required only for the floating display.
+
+The displayed value is **net current at the battery**, not current or voltage at the USB charger. A connected cable can still coincide with a negative value if the battery is discharging. Green indicates positive battery current; it does not confirm fast charging or USB Power Delivery. Measurements depend on what your device reports to Android.
+
+### Optional app usage list
+
+The app ranking needs Android usage access and one-time ADB grants. Install [Android platform-tools](https://developer.android.com/tools/releases/platform-tools), enable USB debugging on the phone, connect it to your computer, and run:
 
 ```bash
 adb shell pm grant de.batteryng.mvp android.permission.DUMP
@@ -40,34 +36,40 @@ adb shell pm grant de.batteryng.mvp android.permission.PACKAGE_USAGE_STATS
 adb shell appops set de.batteryng.mvp GET_USAGE_STATS allow
 ```
 
-Der Button **„Android-Nutzungszugriff öffnen“** im Zahnrad-Menü führt zur passenden Android-Einstellung. Nach einer Neuinstallation oder wenn Android eine Freigabe entzieht, die Schritte gegebenenfalls wiederholen. Die Live-Anzeige des Nettostroms funktioniert ohne diese drei Befehle.
+You can open Android's usage access screen from BatteryNG's Settings. The ranking appears after at least two samples; Android may delay background samples. Gaps, resets, and shared app IDs can make the estimates incomplete. Hiding the list does not stop local history collection. Clearing BatteryNG's app data removes its history and settings.
 
-Für die schwebende Anzeige ist zusätzlich **„Über anderen Apps einblenden“** nötig. Auf dem Pixel 6 Pro blockierte Android diese Freigabe für die per APK installierte App mit „App wurde Zugriff verweigert“. Bei ausdrücklich gewünschter schwebender Anzeige und verbundener ADB-Sitzung ließ sich die Freigabe so setzen:
+This GitHub APK is currently **test-signed**. A future F-Droid build will have a different signing key, so switching installation sources may require uninstalling BatteryNG first, which deletes its local history.
+
+## Deutsch
+
+### Das zeigt BatteryNG
+
+- **Akkustrom live:** Positive Werte bedeuten, dass der Akku lädt; negative Werte zeigen Entladung. Das Steckersymbol zeigt eine angeschlossene Stromquelle.
+- **Anschauliche Anzeige:** Ein Balken läuft bei Entladung nach links und beim Laden nach rechts. Akkustand, Temperatur sowie Minimum und Maximum der aktuellen Sitzung sind sichtbar. **Akku-Details** lassen sich durch Antippen ein- und ausklappen.
+- **Optionale schwebende Anzeige:** Der Stromwert bleibt über dem Launcher und anderen Apps sichtbar. Solange BatteryNG geöffnet ist, kannst du die Anzeige verschieben. Drehung, Schrift, Hintergrund, Transparenz und „nur beim Aufladen zeigen“ sind einstellbar.
+- **Optionale App-Verbrauchsliste:** Zeige die Top 1–10 Apps nach *geschätztem* Akkuverbrauch der letzten 24 Stunden oder seit der letzten erkannten Vollladung (mit Stromanschluss und über 96 %). Die Liste lässt sich einklappen oder in den Einstellungen ausblenden.
+- **Deine Einstellungen:** mA oder A, Deutsch oder Englisch, helles oder dunkles Design sowie automatische oder manuelle Korrektur des Stromvorzeichens.
+
+### Installation und Nutzung
+
+1. Lade die aktuelle APK unter [Releases](https://github.com/g3orgs/BatteryNG/releases) herunter und installiere sie auf Android 6.0 oder neuer. Android fragt möglicherweise nach der Erlaubnis für Installationen aus dieser Quelle.
+2. Öffne BatteryNG. Die Live-Messung und Akku-Details funktionieren sofort, ohne ADB oder besondere Freigabe.
+3. Über das **Zahnrad** erreichst du Einheiten, Sprache, Design, Vorzeichen, schwebende Anzeige und die optionalen Bereiche der Startseite. Nur für die schwebende Anzeige braucht Android die Freigabe **„Über anderen Apps einblenden“**.
+
+Der Wert ist der **Netto-Akkustrom**, nicht der Strom oder die Spannung am USB-Netzteil. Trotz angeschlossenem Kabel kann ein negativer Wert auftreten, wenn sich der Akku entlädt. Grün bedeutet positiven Akkustrom, bestätigt aber weder Schnellladen noch USB Power Delivery. Die Messwerte hängen vom Gerät und seiner Android-Implementierung ab.
+
+### Optionale App-Verbrauchsliste
+
+Für die Rangliste sind Android-Nutzungszugriff und einmalige ADB-Freigaben nötig. Installiere die [Android Platform Tools](https://developer.android.com/tools/releases/platform-tools), aktiviere USB-Debugging auf dem Telefon, verbinde es mit dem Computer und führe aus:
 
 ```bash
-adb shell appops set de.batteryng.mvp SYSTEM_ALERT_WINDOW allow
+adb shell pm grant de.batteryng.mvp android.permission.DUMP
+adb shell pm grant de.batteryng.mvp android.permission.PACKAGE_USAGE_STATS
+adb shell appops set de.batteryng.mvp GET_USAGE_STATS allow
 ```
 
-Danach BatteryNG erneut öffnen und die schwebende Anzeige im Zahnrad-Menü starten. Wenn **„Nur beim Aufladen zeigen“** aktiv ist, verschwindet sie ohne Stromanschluss wie eingestellt.
+Die Android-Seite für den Nutzungszugriff kannst du aus den BatteryNG-Einstellungen öffnen. Die Rangliste erscheint nach mindestens zwei Messpunkten; Android kann Hintergrundmessungen verzögern. Messlücken, Zähler-Resets und gemeinsam genutzte App-IDs können die Schätzung verfälschen. Das Ausblenden der Liste beendet die lokale Verlaufserfassung nicht. Beim Löschen der App-Daten gehen Verlauf und Einstellungen verloren.
 
-## Bauen und testen
+Diese GitHub-APK ist derzeit **testsigniert**. Eine spätere F-Droid-Version wird mit einem anderen Schlüssel signiert. Der Wechsel kann eine Deinstallation erfordern und löscht dann den lokalen Verlauf.
 
-Benötigt werden JDK 17 und ein Android SDK mit Plattform 34 und Build Tools 35.0.0. Das Gradle-Wrapper-Skript wird auf diesem NAS-Mount über `bash` gestartet:
-
-```bash
-ANDROID_HOME=/pfad/zum/Android/Sdk bash gradlew :app:testDebugUnitTest :app:exportDebugApk
-```
-
-Die installierbare Debug-APK liegt nach dem Build unter `dist/BatteryNG.apk`. Sie ist nur für Tests signiert. Installation auf einem per ADB verbundenen Gerät:
-
-```bash
-adb install -r dist/BatteryNG.apk
-```
-
-Stand des Tests: Version 0.12.0 wurde auf einem Xiaomi 2201123G mit Android 15/HyperOS 3 getestet. Ohne Kabel zeigte die automatische Vorzeichenkorrektur Entladung; nach erneutem Anschließen zeigte die App bei Android-Status „Lädt“ einen positiven Wert. 38 Unit-Tests bestehen. Ein [Screenshot der Hauptansicht](fastlane/metadata/android/de-DE/images/phoneScreenshots/1.png) liegt bei den öffentlichen App-Metadaten.
-
-## Lizenz, Datenschutz und Veröffentlichung
-
-BatteryNG, einschließlich des selbst erstellten Launcher-Icons, steht unter [Apache-2.0](LICENSE). Die Herkunft der Grafik ist unter [assets/README.md](assets/README.md) beschrieben. Der [Quellcode](https://github.com/g3orgs/BatteryNG) ist öffentlich. Die [Datenschutzhinweise](PRIVACY.md) erläutern die optionalen Berechtigungen und lokalen Verlaufsdaten. Ein [F-Droid-Einreichungsentwurf](docs/fdroid-submission.md) enthält die Build-Metadaten.
-
-`dist/` enthält lokal gebaute Debug-APKs und `outputs/` interne Test- und Referenzdateien. Beide Ordner sind vom öffentlichen Quellstand ausgeschlossen. F-Droid erstellt und signiert die veröffentlichte APK aus einem getaggten Quellstand; die lokale Debug-APK ist nur zum Testen.
+BatteryNG benötigt keine Netzwerkberechtigung. Quellcode und App-Icon stehen unter [Apache-2.0](LICENSE); weitere Informationen findest du unter [Datenschutz](PRIVACY.md).
