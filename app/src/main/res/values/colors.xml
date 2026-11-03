@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ic_launcher_background">#102936</color>
+    <color name="background">#F2F7F8</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="primary">#12313B</color>
+    <color name="secondary">#506B73</color>
+    <color name="charging">#087D57</color>
+    <color name="discharging">#BD453D</color>
+    <color name="neutral">#3E7080</color>
+    <color name="border">#D5E3E6</color>
+    <color name="charging_surface">#E7F6EE</color>
+    <color name="discharging_surface">#FFF0EC</color>
+    <color name="neutral_surface">#E8F2F5</color>
+</resources>

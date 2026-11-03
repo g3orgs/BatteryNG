@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="background">#0B171C</color>
+    <color name="surface">#15262D</color>
+    <color name="primary">#E8F5F5</color>
+    <color name="secondary">#A7BFC6</color>
+    <color name="charging">#4FE0A8</color>
+    <color name="discharging">#FF8B7B</color>
+    <color name="neutral">#86BCCB</color>
+    <color name="border">#304850</color>
+    <color name="charging_surface">#153D32</color>
+    <color name="discharging_surface">#452A2B</color>
+    <color name="neutral_surface">#1D3540</color>
+</resources>

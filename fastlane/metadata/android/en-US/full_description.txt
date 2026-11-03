@@ -1,0 +1,9 @@
+BatteryNG shows your Android device's live net battery current. Positive values mean current is entering the battery; negative values mean it is discharging. The app includes a flow bar, battery temperature, charging status, and other available battery details. You can switch between milliamperes and amperes. On devices that report the opposite current sign, BatteryNG can detect the polarity automatically or let you correct it manually.
+
+The optional floating overlay shows the current over the launcher and other apps. It requires Android's “Display over other apps” permission. Live measurement and the overlay work without ADB access.
+
+An optional list shows the apps with the highest estimated battery use over the last 24 hours or since the last detected full charge. This feature requires Android usage access and a one-time ADB developer grant for DUMP and PACKAGE_USAGE_STATS. Live measurement remains available without these grants. The usage figures are estimates from Android battery statistics and may be incomplete when samples are missing.
+
+Hiding the app-usage list from the home screen only changes its visibility. Local history collection continues after the required access has been granted.
+
+BatteryNG does not request network access and stores collected history locally on the device. The displayed current is net battery current, not USB input current.

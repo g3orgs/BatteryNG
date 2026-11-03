@@ -1,0 +1,11 @@
+BatteryNG
+Copyright 2026 g3orgs
+
+BatteryNG source code, the original launcher artwork in assets/ and
+app/src/main/res/mipmap-*/, and the app screenshots in fastlane/ are licensed
+under the Apache License, Version 2.0 by the project rights holder.
+See LICENSE for the full terms.
+
+The Gradle Wrapper files (gradlew, gradlew.bat, and gradle/wrapper/) originate
+from the Gradle project and are distributed under the Apache License,
+Version 2.0. The wrapper JAR matches Gradle's published 8.12 SHA-256 checksum.

@@ -1,0 +1,1 @@
+BatteryNG can now detect battery-current polarity automatically or reverse it manually. This corrects opposite signs on affected devices. The main display, flow bar, smiley, min/max values, and floating overlay use the same corrected reading.

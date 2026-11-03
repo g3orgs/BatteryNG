@@ -1,0 +1,9 @@
+BatteryNG zeigt den momentanen Netto-Akkustrom deines Android-Geräts. Positive Werte bedeuten, dass Strom in den Akku fließt; negative Werte zeigen Entladung. Die App bietet eine Balkenanzeige, Akkutemperatur, Ladezustand und weitere verfügbare Akkudetails. Du kannst zwischen Milliampere und Ampere wechseln. Bei Geräten mit umgekehrtem Messvorzeichen lässt sich die Stromrichtung automatisch erkennen oder manuell korrigieren.
+
+Die optionale schwebende Anzeige zeigt den Wert auch über dem Launcher und anderen Apps. Dafür benötigt BatteryNG die Android-Freigabe „Über anderen Apps einblenden“. Die Live-Messung und die schwebende Anzeige funktionieren ohne ADB-Freigabe.
+
+Eine optionale Liste zeigt die Apps mit dem höchsten geschätzten Akkuverbrauch der letzten 24 Stunden oder seit der letzten erkannten Vollladung. Für diese Auswertung sind der Android-Nutzungszugriff und eine einmalige ADB-Entwicklerfreigabe für DUMP und PACKAGE_USAGE_STATS erforderlich. Ohne diese Freigaben bleibt die Live-Messung nutzbar. Die Verbrauchswerte sind Schätzungen aus Androids Akku-Statistik und können bei Messlücken unvollständig sein.
+
+Wenn die App-Verbrauchsliste auf der Startseite ausgeblendet wird, läuft die lokale Verlaufserfassung nach erteilter Freigabe weiter. Das Ausblenden ändert nur die Anzeige.
+
+BatteryNG benötigt keine Netzwerkberechtigung und speichert erfasste Verlaufsdaten lokal auf dem Gerät. Der angezeigte Strom ist der Netto-Akkustrom, nicht der Strom am USB-Anschluss.

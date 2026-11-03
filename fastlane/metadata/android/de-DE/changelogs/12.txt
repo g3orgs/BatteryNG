@@ -1,0 +1,1 @@
+Die Stromrichtung kann automatisch erkannt oder manuell umgekehrt werden. Das korrigiert vertauschte Vorzeichen auf betroffenen Geräten. Hauptanzeige, Balken, Smiley, Min/Max und schwebende Anzeige verwenden denselben korrigierten Wert.
