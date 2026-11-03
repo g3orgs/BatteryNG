@@ -36,6 +36,8 @@ adb shell pm grant de.batteryng.mvp android.permission.PACKAGE_USAGE_STATS
 adb shell appops set de.batteryng.mvp GET_USAGE_STATS allow
 ```
 
+If Android says **“App was denied access”** when you enable Usage Access for the GitHub APK, open **Android Settings → Apps → BatteryNG → ⋮ → Allow restricted settings** and confirm on the device. Then return to **BatteryNG Settings → Open Android Usage Access**, select BatteryNG, and enable access. This is [Android's extra confirmation for apps installed from a browser](https://support.google.com/android/answer/12623953?hl=en); the ADB grants above are still needed for the ranking.
+
 You can open Android's usage access screen from BatteryNG's Settings. The ranking appears after at least two samples; Android may delay background samples. Gaps, resets, and shared app IDs can make the estimates incomplete. Hiding the list does not stop local history collection. Clearing BatteryNG's app data removes its history and settings.
 
 The 0.12.0 GitHub APK was **debug-signed**. Starting with 0.12.1, GitHub builds use a dedicated release key. Android cannot update a debug-signed installation with the new key: uninstall 0.12.0 first, which deletes its local history. If BatteryNG becomes available on F-Droid, its builds will use a different key, so switching installation sources will also require reinstalling.
@@ -67,6 +69,8 @@ adb shell pm grant de.batteryng.mvp android.permission.DUMP
 adb shell pm grant de.batteryng.mvp android.permission.PACKAGE_USAGE_STATS
 adb shell appops set de.batteryng.mvp GET_USAGE_STATS allow
 ```
+
+Falls Android beim Aktivieren des Nutzungszugriffs **„App wurde Zugriff verweigert“** meldet, öffne **Android-Einstellungen → Apps → BatteryNG → ⋮ → Eingeschränkte Einstellungen zulassen** und bestätige die Abfrage am Gerät. Gehe danach zurück zu **BatteryNG → Zahnrad → Android-Nutzungszugriff öffnen**, wähle BatteryNG und aktiviere den Zugriff. Das ist [Androids zusätzliche Bestätigung für per Browser installierte Apps](https://support.google.com/android/answer/12623953?hl=de); die ADB-Freigaben oben sind für die Rangliste weiterhin nötig.
 
 Die Android-Seite für den Nutzungszugriff kannst du aus den BatteryNG-Einstellungen öffnen. Die Rangliste erscheint nach mindestens zwei Messpunkten; Android kann Hintergrundmessungen verzögern. Messlücken, Zähler-Resets und gemeinsam genutzte App-IDs können die Schätzung verfälschen. Das Ausblenden der Liste beendet die lokale Verlaufserfassung nicht. Beim Löschen der App-Daten gehen Verlauf und Einstellungen verloren.
 
