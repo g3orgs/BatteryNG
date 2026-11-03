@@ -20,9 +20,8 @@ für einen reproduzierbaren Build.
 
 Die F-Droid-Aufnahmekriterien nennen grundsätzlich drei Monate aktive
 Entwicklung. Eine Ausnahme ist für Apps mit nachweisbaren Nutzern möglich.
-BatteryNG wird bereits von weiteren Personen genutzt; für den Merge Request
-sollte dazu ein belegbarer Hinweis ergänzt werden. Die endgültige Aufnahme
-entscheidet das F-Droid-Team.
+Ob BatteryNG schon vorher aufgenommen werden kann, entscheidet das
+F-Droid-Team.
 
 Die von F-Droid signierte APK hat einen anderen Signaturschlüssel als bisherige
 lokale Debug-Installationen. Android kann diese Installationen daher nicht
