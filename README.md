@@ -38,7 +38,7 @@ adb shell appops set de.batteryng.mvp GET_USAGE_STATS allow
 
 You can open Android's usage access screen from BatteryNG's Settings. The ranking appears after at least two samples; Android may delay background samples. Gaps, resets, and shared app IDs can make the estimates incomplete. Hiding the list does not stop local history collection. Clearing BatteryNG's app data removes its history and settings.
 
-This GitHub APK is currently **test-signed**. A future F-Droid build will have a different signing key, so switching installation sources may require uninstalling BatteryNG first, which deletes its local history.
+The 0.12.0 GitHub APK was **debug-signed**. Starting with 0.12.1, GitHub builds use a dedicated release key. Android cannot update a debug-signed installation with the new key: uninstall 0.12.0 first, which deletes its local history. If BatteryNG becomes available on F-Droid, its builds will use a different key, so switching installation sources will also require reinstalling.
 
 ## Deutsch
 
@@ -70,6 +70,6 @@ adb shell appops set de.batteryng.mvp GET_USAGE_STATS allow
 
 Die Android-Seite für den Nutzungszugriff kannst du aus den BatteryNG-Einstellungen öffnen. Die Rangliste erscheint nach mindestens zwei Messpunkten; Android kann Hintergrundmessungen verzögern. Messlücken, Zähler-Resets und gemeinsam genutzte App-IDs können die Schätzung verfälschen. Das Ausblenden der Liste beendet die lokale Verlaufserfassung nicht. Beim Löschen der App-Daten gehen Verlauf und Einstellungen verloren.
 
-Diese GitHub-APK ist derzeit **testsigniert**. Eine spätere F-Droid-Version wird mit einem anderen Schlüssel signiert. Der Wechsel kann eine Deinstallation erfordern und löscht dann den lokalen Verlauf.
+Die GitHub-APK 0.12.0 war **debug-signiert**. Ab 0.12.1 verwenden GitHub-Builds einen eigenen Release-Schlüssel. Android kann die Debug-Installation mit dem neuen Schlüssel nicht aktualisieren: Deinstalliere 0.12.0 zuerst; dabei geht ihr lokaler Verlauf verloren. Falls BatteryNG bei F-Droid erscheint, werden dessen Builds einen anderen Schlüssel nutzen. Der Wechsel der Bezugsquelle erfordert dann ebenfalls eine Neuinstallation.
 
 BatteryNG benötigt keine Netzwerkberechtigung. Quellcode und App-Icon stehen unter [Apache-2.0](LICENSE); weitere Informationen findest du unter [Datenschutz](PRIVACY.md).

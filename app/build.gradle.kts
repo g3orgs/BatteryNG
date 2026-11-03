@@ -11,8 +11,8 @@ android {
         applicationId = "de.batteryng.mvp"
         minSdk = 23
         targetSdk = 34
-        versionCode = 12
-        versionName = "0.12.0"
+        versionCode = 13
+        versionName = "0.12.1"
     }
 
     buildTypes {
@@ -37,9 +37,9 @@ dependencies {
 
 tasks.register<Copy>("exportDebugApk") {
     group = "build"
-    description = "Builds the debug APK and copies it to dist/BatteryNG.apk."
+    description = "Builds the debug APK and copies it to dist/BatteryNG-debug.apk."
     dependsOn("assembleDebug")
     from(layout.buildDirectory.file("outputs/apk/debug/app-debug.apk"))
     into(rootProject.layout.projectDirectory.dir("dist"))
-    rename("app-debug.apk", "BatteryNG.apk")
+    rename("app-debug.apk", "BatteryNG-debug.apk")
 }

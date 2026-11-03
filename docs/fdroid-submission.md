@@ -1,10 +1,10 @@
 # F-Droid-Einreichung
 
 Der [Merge Request !55598](https://gitlab.com/fdroid/fdroiddata/-/merge_requests/55598)
-ist zur Aufnahme von BatteryNG eingereicht. Die CI-Pipelines im persönlichen
-GitLab-Fork haben wegen einer zusätzlichen GitLab-Identitätsprüfung keine Jobs
-ausgeführt; der Grund steht im Merge Request, damit F-Droid die Prüfung selbst
-anstoßen kann.
+wurde am 3. November 2026 geschlossen, weil BatteryNG noch keine drei Monate
+aktiv entwickelt wurde. Eine erneute Einreichung ist nach Erreichen dieser
+Frist möglich. Die damaligen CI-Pipelines im persönlichen GitLab-Fork hatten
+wegen einer zusätzlichen GitLab-Identitätsprüfung keine Jobs ausgeführt.
 
 Der öffentliche Quellcode liegt unter https://github.com/g3orgs/BatteryNG. Der Tag
 `v0.12.0` zeigt auf Commit `e497dd53b78a47018ad8593fe76c9c8d2d97d67b`.
@@ -20,8 +20,7 @@ für einen reproduzierbaren Build.
 
 Die F-Droid-Aufnahmekriterien nennen grundsätzlich drei Monate aktive
 Entwicklung. Eine Ausnahme ist für Apps mit nachweisbaren Nutzern möglich.
-Ob BatteryNG schon vorher aufgenommen werden kann, entscheidet das
-F-Droid-Team.
+Für die frühere Einreichung lag kein öffentlicher Nutzernachweis vor.
 
 Die von F-Droid signierte APK hat einen anderen Signaturschlüssel als bisherige
 lokale Debug-Installationen. Android kann diese Installationen daher nicht

@@ -12,3 +12,5 @@ local.properties
 *.apks
 *.jks
 *.keystore
+*.p12
+*.pass
