@@ -301,6 +301,22 @@
                     android:text="@string/top_apps_estimate_note"
                     android:textColor="@color/secondary"
                     android:textSize="12sp" />
+
+                <Button
+                    android:id="@+id/androidBatteryUsageButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:minHeight="48dp"
+                    android:text="@string/android_battery_usage_button"
+                    android:textAllCaps="false" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/android_battery_usage_hint"
+                    android:textColor="@color/secondary"
+                    android:textSize="12sp" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

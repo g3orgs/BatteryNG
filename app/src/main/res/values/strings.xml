@@ -81,7 +81,10 @@
     <string name="top_apps_period_24h">Letzte 24 Stunden</string>
     <string name="top_apps_period_charge">Seit letzter Vollladung (&gt; 96 %)</string>
     <string name="top_apps_awaiting_charge">Noch keine Vollladung erkannt. Die Auswertung beginnt, sobald der Akku mit Stromanschluss über 96 % erreicht.</string>
-    <string name="top_apps_permission_short">Für die Auswertung fehlen Freigaben. Bitte über das Zahnrad einrichten.</string>
+    <string name="top_apps_permission_short">Für die BatteryNG-Rangliste fehlen erweiterte Freigaben. Androids eigene Akkuübersicht kannst du unten ohne ADB öffnen.</string>
+    <string name="android_battery_usage_button">Android-Akkuverbrauch öffnen</string>
+    <string name="android_battery_usage_hint">Androids eigene Auswertung kann einen anderen Zeitraum als oben verwenden.</string>
+    <string name="android_battery_usage_unavailable">Die Android-Akkuübersicht ist auf diesem Gerät nicht verfügbar.</string>
     <string name="top_apps_duration_minutes">%1$d Min.</string>
     <string name="top_apps_duration_hours">%1$s h</string>
     <string name="top_apps_coverage_24h">%1$s von 24 h erfasst</string>

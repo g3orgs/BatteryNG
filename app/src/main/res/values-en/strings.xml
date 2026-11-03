@@ -81,7 +81,10 @@
     <string name="top_apps_period_24h">Last 24 hours</string>
     <string name="top_apps_period_charge">Since last full charge (&gt; 96%)</string>
     <string name="top_apps_awaiting_charge">No full charge has been detected yet. Tracking starts once the plugged-in battery exceeds 96%.</string>
-    <string name="top_apps_permission_short">Access is missing for this report. Set it up in Settings.</string>
+    <string name="top_apps_permission_short">The BatteryNG ranking needs advanced access. You can open the Android battery usage screen below without ADB.</string>
+    <string name="android_battery_usage_button">Open Android battery usage</string>
+    <string name="android_battery_usage_hint">The Android report may use a different time range from the one above.</string>
+    <string name="android_battery_usage_unavailable">The Android battery usage screen is unavailable on this device.</string>
     <string name="top_apps_duration_minutes">%1$d min</string>
     <string name="top_apps_duration_hours">%1$s h</string>
     <string name="top_apps_coverage_24h">%1$s of 24 h recorded</string>

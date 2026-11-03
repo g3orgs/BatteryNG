@@ -1,5 +1,6 @@
 package de.batteryng.mvp
 
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.drawable.GradientDrawable
@@ -12,10 +13,12 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import de.batteryng.mvp.measurement.BatteryCurrentReader
 import de.batteryng.mvp.measurement.BatteryCurrentReading
 import de.batteryng.mvp.measurement.BatteryChargeStatus
@@ -137,6 +140,9 @@ class MainActivity : BatteryNgActivity() {
         topAppsStatus = findViewById(R.id.topAppsStatus)
         topAppsCoverage = findViewById(R.id.topAppsCoverage)
         topAppsRows = findViewById(R.id.topAppsRows)
+        findViewById<Button>(R.id.androidBatteryUsageButton).setOnClickListener {
+            openAndroidBatteryUsage()
+        }
         findViewById<ImageButton>(R.id.settingsButton).setOnClickListener {
             startActivity(Intent(this, SettingsActivity::class.java))
         }
@@ -206,6 +212,16 @@ class MainActivity : BatteryNgActivity() {
             runOnUiThread {
                 if (generation == usageLoadGeneration && !isDestroyed) renderTopApps(state)
             }
+        }
+    }
+
+    private fun openAndroidBatteryUsage() {
+        try {
+            startActivity(Intent(Intent.ACTION_POWER_USAGE_SUMMARY))
+        } catch (_: ActivityNotFoundException) {
+            Toast.makeText(this, R.string.android_battery_usage_unavailable, Toast.LENGTH_LONG).show()
+        } catch (_: SecurityException) {
+            Toast.makeText(this, R.string.android_battery_usage_unavailable, Toast.LENGTH_LONG).show()
         }
     }
 

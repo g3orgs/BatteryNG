@@ -11,8 +11,8 @@ android {
         applicationId = "de.batteryng.mvp"
         minSdk = 23
         targetSdk = 34
-        versionCode = 13
-        versionName = "0.12.1"
+        versionCode = 14
+        versionName = "0.12.2"
     }
 
     buildTypes {

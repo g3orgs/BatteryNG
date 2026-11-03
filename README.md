@@ -14,6 +14,7 @@ Watch the current flowing into or out of your Android battery, live. BatteryNG i
 - **Clear visual feedback:** a left or right moving bar, battery level, temperature, and session minimum and maximum. Tap **Battery details** to expand or collapse the available Android battery information.
 - **Optional floating display:** keep the current visible over the launcher and other apps. While BatteryNG is open you can drag it into place; you can also rotate it, change its text and background, adjust transparency, or show it only while plugged in.
 - **Optional app usage list:** see the top 1–10 apps by *estimated* battery use over the last 24 hours or since the last detected full charge (plugged in and above 96%). Tap the heading to collapse the list, or hide it in Settings.
+- **Android battery usage:** open Android's own per-app battery report from the app usage section without ADB. Android chooses the report's time range.
 - **Your preferences:** choose mA or A, English or German, light or dark theme, and automatic or manual current polarity correction for devices that report the sign backwards.
 
 <img src="fastlane/metadata/android/de-DE/images/phoneScreenshots/1.png" alt="BatteryNG main screen showing live current and battery details" width="300">
@@ -28,7 +29,7 @@ The displayed value is **net current at the battery**, not current or voltage at
 
 ### Optional app usage list
 
-The app ranking needs Android usage access and one-time ADB grants. Install [Android platform-tools](https://developer.android.com/tools/releases/platform-tools), enable USB debugging on the phone, connect it to your computer, and run:
+For the no-setup route, tap **Open Android battery usage** in BatteryNG. This opens Android's own report; its period and format are controlled by Android. BatteryNG's embedded 1–10 app ranking is an advanced feature that needs Android usage access and one-time ADB grants. For that ranking, install [Android platform-tools](https://developer.android.com/tools/releases/platform-tools), enable USB debugging on the phone, connect it to your computer, and run:
 
 ```bash
 adb shell pm grant de.batteryng.mvp android.permission.DUMP
@@ -50,6 +51,7 @@ The 0.12.0 GitHub APK was **debug-signed**. Starting with 0.12.1, GitHub builds 
 - **Anschauliche Anzeige:** Ein Balken läuft bei Entladung nach links und beim Laden nach rechts. Akkustand, Temperatur sowie Minimum und Maximum der aktuellen Sitzung sind sichtbar. **Akku-Details** lassen sich durch Antippen ein- und ausklappen.
 - **Optionale schwebende Anzeige:** Der Stromwert bleibt über dem Launcher und anderen Apps sichtbar. Solange BatteryNG geöffnet ist, kannst du die Anzeige verschieben. Drehung, Schrift, Hintergrund, Transparenz und „nur beim Aufladen zeigen“ sind einstellbar.
 - **Optionale App-Verbrauchsliste:** Zeige die Top 1–10 Apps nach *geschätztem* Akkuverbrauch der letzten 24 Stunden oder seit der letzten erkannten Vollladung (mit Stromanschluss und über 96 %). Die Liste lässt sich einklappen oder in den Einstellungen ausblenden.
+- **Android-Akkuverbrauch:** Öffne Androids eigene App-Verbrauchsübersicht direkt aus BatteryNG, ohne ADB. Den Zeitraum der Übersicht legt Android fest.
 - **Deine Einstellungen:** mA oder A, Deutsch oder Englisch, helles oder dunkles Design sowie automatische oder manuelle Korrektur des Stromvorzeichens.
 
 ### Installation und Nutzung
@@ -62,7 +64,7 @@ Der Wert ist der **Netto-Akkustrom**, nicht der Strom oder die Spannung am USB-N
 
 ### Optionale App-Verbrauchsliste
 
-Für die Rangliste sind Android-Nutzungszugriff und einmalige ADB-Freigaben nötig. Installiere die [Android Platform Tools](https://developer.android.com/tools/releases/platform-tools), aktiviere USB-Debugging auf dem Telefon, verbinde es mit dem Computer und führe aus:
+Für die Nutzung ohne Einrichtung tippe in BatteryNG auf **Android-Akkuverbrauch öffnen**. Damit erscheint Androids eigene Auswertung; Zeitraum und Darstellung bestimmt Android. Die integrierte Rangliste mit 1–10 Apps ist eine erweiterte Funktion. Dafür sind Android-Nutzungszugriff und einmalige ADB-Freigaben nötig. Installiere die [Android Platform Tools](https://developer.android.com/tools/releases/platform-tools), aktiviere USB-Debugging auf dem Telefon, verbinde es mit dem Computer und führe aus:
 
 ```bash
 adb shell pm grant de.batteryng.mvp android.permission.DUMP
