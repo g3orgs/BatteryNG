@@ -33,7 +33,6 @@ import de.batteryng.mvp.measurement.BatteryCurrentReader
 import de.batteryng.mvp.measurement.BatteryCurrentReading
 import de.batteryng.mvp.measurement.CurrentUnitFormatter
 import de.batteryng.mvp.measurement.CurrentUnitPreferences
-import de.batteryng.mvp.usage.UsageChargeTracker
 
 /** Foreground service for the live battery-current overlay. */
 class CurrentOverlayService : Service() {
@@ -58,11 +57,6 @@ class CurrentOverlayService : Service() {
                 return
             }
             val reading = reader.read()
-            try {
-                UsageChargeTracker.observe(this@CurrentOverlayService)
-            } catch (_: RuntimeException) {
-                // A temporary battery broadcast failure must not stop the live overlay.
-            }
             renderReading(reading)
             handler.postDelayed(this, REFRESH_INTERVAL_MS)
         }

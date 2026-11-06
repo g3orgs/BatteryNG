@@ -8,9 +8,10 @@ wegen einer zusätzlichen GitLab-Identitätsprüfung keine Jobs ausgeführt.
 
 Der öffentliche Quellcode liegt unter https://github.com/g3orgs/BatteryNG. Der Tag
 `v0.12.0` zeigt auf Commit `e497dd53b78a47018ad8593fe76c9c8d2d97d67b`.
-Die einmalige ADB-Freigabe für die optionale App-Verbrauchsliste wird in den
-deutschen und englischen Fastlane-Texten erklärt. Die Live-Messung benötigt sie
-nicht.
+Die damalige Einreichung bezog sich auf Version 0.12.0 mit optionaler
+App-Verbrauchsliste. Diese Funktion wurde in Version 0.12.4 entfernt; die
+aktuellen Fastlane-Texte beschreiben nur noch den Absprungpunkt zu Androids
+Akkuverbrauchsübersicht.
 
 Für einen Merge Request an `fdroid/fdroiddata` die Datei
 [`fdroiddata/de.batteryng.mvp.yml`](fdroiddata/de.batteryng.mvp.yml) als

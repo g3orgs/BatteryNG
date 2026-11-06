@@ -154,83 +154,12 @@
             android:orientation="vertical"
             android:padding="20dp">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/settings_period_label"
-                android:textColor="@color/primary"
-                android:textSize="17sp"
-                android:textStyle="bold" />
-
-            <RadioGroup
-                android:id="@+id/usagePeriodGroup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:orientation="vertical">
-
-                <RadioButton
-                    android:id="@+id/period24Button"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:minHeight="48dp"
-                    android:text="@string/settings_period_24h"
-                    android:textColor="@color/primary"
-                    android:textSize="16sp" />
-
-                <RadioButton
-                    android:id="@+id/periodChargeButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:minHeight="48dp"
-                    android:text="@string/settings_period_charge"
-                    android:textColor="@color/primary"
-                    android:textSize="16sp" />
-            </RadioGroup>
-
-            <TextView
-                android:id="@+id/topCountLabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
-                android:text="@string/settings_top_count_default"
-                android:textColor="@color/primary"
-                android:textSize="17sp"
-                android:textStyle="bold" />
-
-            <SeekBar
-                android:id="@+id/topCountSeek"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:max="9"
-                android:progress="2" />
-
-            <CheckBox
-                android:id="@+id/settingsShowTopAppsCheck"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:minHeight="48dp"
-                android:text="@string/settings_show_top_apps"
-                android:textColor="@color/primary"
-                android:textSize="16sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:text="@string/settings_usage_permission_info"
-                android:textColor="@color/secondary"
-                android:textSize="13sp" />
-
             <Button
-                android:id="@+id/usageAccessButton"
+                android:id="@+id/androidBatteryUsageButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:minHeight="48dp"
-                android:text="@string/top_apps_permission_button"
+                android:minHeight="52dp"
+                android:text="@string/android_battery_usage_button"
                 android:textAllCaps="false" />
         </LinearLayout>
 
@@ -323,9 +252,47 @@
             android:padding="20dp">
 
             <TextView
+                android:id="@+id/settingsVersion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/primary"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/settingsCheckUpdatesButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="@color/primary"
+                android:minHeight="52dp"
+                android:text="@string/settings_check_updates"
+                android:textAllCaps="false"
+                android:textColor="@color/surface" />
+
+            <TextView
+                android:id="@+id/settingsUpdateStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/settings_update_manual"
+                android:textColor="@color/secondary"
+                android:textSize="13sp" />
+
+            <Button
+                android:id="@+id/settingsOpenReleasesButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:minHeight="48dp"
+                android:text="@string/settings_open_releases"
+                android:textAllCaps="false" />
+
+            <TextView
                 android:id="@+id/settingsMeasurementInfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:text="@string/settings_measurement_info"
                 android:textColor="@color/primary"
                 android:textSize="14sp" />

@@ -2,8 +2,6 @@ BatteryNG shows your Android device's live net battery current. Positive values 
 
 The optional floating overlay shows the current over the launcher and other apps. It requires Android's “Display over other apps” permission. Live measurement and the overlay work without ADB access.
 
-An optional list shows the apps with the highest estimated battery use over the last 24 hours or since the last detected full charge. This feature requires Android usage access and a one-time ADB developer grant for DUMP and PACKAGE_USAGE_STATS. Live measurement remains available without these grants. The usage figures are estimates from Android battery statistics and may be incomplete when samples are missing.
+A button in Settings opens Android’s own per-app battery usage report. BatteryNG needs no ADB or usage access for this.
 
-Hiding the app-usage list from the home screen only changes its visibility. Local history collection continues after the required access has been granted.
-
-BatteryNG does not request network access and stores collected history locally on the device. The displayed current is net battery current, not USB input current.
+BatteryNG uses network access only for a manually started update check through GitHub. The displayed current is net battery current, not USB input current.

@@ -1,6 +1,8 @@
-# App-Akkuverbrauch nach Zeitraum
+# App-Akkuverbrauch nach Zeitraum (historisch)
 
-Status: Die Funktion ist in BatteryNG 0.12.0 enthalten. 24-Stunden-Ansicht, konfigurierbare Top-Anzahl, Zeitraumwechsel und ausblendbare Rangliste wurden auf Geräten geprüft. Ein echter Ladeübergang über 96 % und eine vollständig erfasste 24-Stunden-Spanne sind noch nicht beobachtet.
+Diese Funktion wurde in Version 0.12.4 entfernt. BatteryNG öffnet jetzt nur noch Androids eigene Akkuverbrauchsübersicht aus den Einstellungen. Die folgenden Notizen dokumentieren die frühere Implementierung.
+
+Historischer Stand in BatteryNG 0.12.0: 24-Stunden-Ansicht, konfigurierbare Top-Anzahl, Zeitraumwechsel und ausblendbare Rangliste wurden auf Geräten geprüft. Ein echter Ladeübergang über 96 % und eine vollständig erfasste 24-Stunden-Spanne wurden damals nicht beobachtet.
 
 ## Nutzeransicht
 

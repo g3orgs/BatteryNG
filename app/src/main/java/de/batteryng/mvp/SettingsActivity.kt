@@ -1,8 +1,10 @@
 package de.batteryng.mvp
 
+import android.app.AlertDialog
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.view.View
@@ -11,8 +13,6 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.ImageButton
-import android.widget.RadioGroup
-import android.widget.SeekBar
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
@@ -25,30 +25,22 @@ import de.batteryng.mvp.measurement.CurrentUnitPreferences
 import de.batteryng.mvp.overlay.CurrentOverlayService
 import de.batteryng.mvp.overlay.OverlayPreferences
 import de.batteryng.mvp.overlay.OverlayStyle
-import de.batteryng.mvp.usage.UsageChargeTracker
-import de.batteryng.mvp.usage.UsagePeriod
-import de.batteryng.mvp.usage.UsagePreferences
-import de.batteryng.mvp.usage.UsageSettings
 import java.text.DateFormat
 import java.util.Date
 import java.util.Locale
 
-/** All user controls for the usage ranking and floating readout. */
+/** User controls for display, overlay, and app information. */
 class SettingsActivity : BatteryNgActivity() {
-    private lateinit var usageSettings: UsageSettings
     private lateinit var overlayStyle: OverlayStyle
     private lateinit var appearanceSettings: AppearanceSettings
     private lateinit var overlayButton: Button
     private lateinit var showBatteryDetailsCheck: CheckBox
-    private lateinit var showTopAppsCheck: CheckBox
     private lateinit var onlyPluggedCheck: CheckBox
     private lateinit var currentUnitSpinner: Spinner
     private lateinit var currentPolaritySpinner: Spinner
     private lateinit var rotationSpinner: Spinner
-    private lateinit var topCountSeek: SeekBar
-    private lateinit var topCountLabel: TextView
-    private lateinit var periodGroup: RadioGroup
     private var startOverlayAfterPermission = false
+    private var openOverlaySettingsAfterAppInfo = false
     private var currentUnit = CurrentUnit.MILLIAMPS
     private var currentPolarityMode = CurrentPolarityMode.AUTOMATIC
 
@@ -56,11 +48,29 @@ class SettingsActivity : BatteryNgActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
         startOverlayAfterPermission = savedInstanceState?.getBoolean(STATE_PENDING_OVERLAY) ?: false
-        usageSettings = UsagePreferences.load(this)
+        openOverlaySettingsAfterAppInfo =
+            savedInstanceState?.getBoolean(STATE_PENDING_APP_INFO) ?: false
         overlayStyle = OverlayPreferences.load(this)
         appearanceSettings = AppAppearance.load(this)
         currentUnit = CurrentUnitPreferences.load(this)
         currentPolarityMode = CurrentPolarityPreferences.loadMode(this)
+
+        @Suppress("DEPRECATION")
+        val installedVersion = packageManager.getPackageInfo(packageName, 0).versionName.orEmpty()
+        findViewById<TextView>(R.id.settingsVersion).text =
+            getString(R.string.settings_version, installedVersion)
+        val updateButton = findViewById<Button>(R.id.settingsCheckUpdatesButton)
+        val updateStatus = findViewById<TextView>(R.id.settingsUpdateStatus)
+        updateButton.setOnClickListener {
+            checkForUpdates(installedVersion, updateButton, updateStatus)
+        }
+        findViewById<Button>(R.id.settingsOpenReleasesButton).setOnClickListener {
+            try {
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(GitHubReleases.PAGE_URL)))
+            } catch (_: ActivityNotFoundException) {
+                Toast.makeText(this, R.string.settings_open_releases_failed, Toast.LENGTH_LONG).show()
+            }
+        }
 
         findViewById<ImageButton>(R.id.settingsBackButton).setOnClickListener { finish() }
 
@@ -168,41 +178,9 @@ class SettingsActivity : BatteryNgActivity() {
             DisplayPreferences.setShowBatteryDetails(this, checked)
         }
 
-        periodGroup = findViewById(R.id.usagePeriodGroup)
-        periodGroup.check(
-            if (usageSettings.period == UsagePeriod.LAST_24_HOURS) R.id.period24Button
-            else R.id.periodChargeButton
-        )
-        periodGroup.setOnCheckedChangeListener { _, checkedId ->
-            val period = if (checkedId == R.id.periodChargeButton) {
-                UsagePeriod.SINCE_FULL_CHARGE
-            } else {
-                UsagePeriod.LAST_24_HOURS
-            }
-            if (period != usageSettings.period) saveUsage(usageSettings.copy(period = period))
+        findViewById<Button>(R.id.androidBatteryUsageButton).setOnClickListener {
+            openAndroidBatteryUsage()
         }
-
-        topCountLabel = findViewById(R.id.topCountLabel)
-        topCountSeek = findViewById(R.id.topCountSeek)
-        topCountSeek.progress = usageSettings.topCount - 1
-        updateTopCountLabel()
-        topCountSeek.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                if (!fromUser) return
-                saveUsage(usageSettings.copy(topCount = progress + 1))
-                updateTopCountLabel()
-            }
-            override fun onStartTrackingTouch(seekBar: SeekBar?) = Unit
-            override fun onStopTrackingTouch(seekBar: SeekBar?) = Unit
-        })
-        showTopAppsCheck = findViewById(R.id.settingsShowTopAppsCheck)
-        showTopAppsCheck.isChecked = usageSettings.showTopApps
-        showTopAppsCheck.setOnCheckedChangeListener { _, checked ->
-            if (checked != usageSettings.showTopApps) {
-                saveUsage(usageSettings.copy(showTopApps = checked))
-            }
-        }
-        findViewById<Button>(R.id.usageAccessButton).setOnClickListener { openUsageAccessSettings() }
 
         overlayButton = findViewById(R.id.settingsOverlayButton)
         overlayButton.setOnClickListener { toggleOverlay() }
@@ -245,21 +223,20 @@ class SettingsActivity : BatteryNgActivity() {
     override fun onResume() {
         super.onResume()
         CurrentOverlayService.setAppForeground(true)
-        UsageChargeTracker.observe(this)
-        usageSettings = UsagePreferences.load(this)
         overlayStyle = OverlayPreferences.load(this)
         currentUnit = CurrentUnitPreferences.load(this)
         currentUnitSpinner.setSelection(currentUnit.ordinal)
         currentPolarityMode = CurrentPolarityPreferences.loadMode(this)
         currentPolaritySpinner.setSelection(currentPolarityMode.ordinal)
         showBatteryDetailsCheck.isChecked = DisplayPreferences.showBatteryDetails(this)
-        showTopAppsCheck.isChecked = usageSettings.showTopApps
         updateOverlayButton()
         onlyPluggedCheck.isChecked = overlayStyle.showOnlyWhilePlugged
         rotationSpinner.setSelection(overlayStyle.rotationDegrees / 90)
-        updateTopCountLabel()
         updateMeasurementInfo()
-        if (startOverlayAfterPermission) {
+        if (openOverlaySettingsAfterAppInfo) {
+            openOverlaySettingsAfterAppInfo = false
+            if (Settings.canDrawOverlays(this)) startOverlay() else openOverlayPermissionSettings()
+        } else if (startOverlayAfterPermission) {
             startOverlayAfterPermission = false
             if (Settings.canDrawOverlays(this)) startOverlay()
         }
@@ -272,16 +249,38 @@ class SettingsActivity : BatteryNgActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putBoolean(STATE_PENDING_OVERLAY, startOverlayAfterPermission)
+        outState.putBoolean(STATE_PENDING_APP_INFO, openOverlaySettingsAfterAppInfo)
         super.onSaveInstanceState(outState)
     }
 
-    private fun saveUsage(next: UsageSettings) {
-        usageSettings = next
-        UsagePreferences.save(this, next)
-    }
-
-    private fun updateTopCountLabel() {
-        topCountLabel.text = getString(R.string.settings_top_count, usageSettings.topCount)
+    private fun checkForUpdates(installedVersion: String, button: Button, status: TextView) {
+        button.isEnabled = false
+        status.setText(R.string.settings_update_checking)
+        Thread {
+            val latestVersion = runCatching { GitHubReleases.latestVersion() }.getOrNull()
+            runOnUiThread {
+                if (isFinishing || isDestroyed) return@runOnUiThread
+                button.isEnabled = true
+                status.text = if (latestVersion == null) {
+                    getString(R.string.settings_update_failed)
+                } else {
+                    val message = when (ReleaseVersions.compare(latestVersion, installedVersion)) {
+                        1 -> R.string.settings_update_available
+                        0 -> R.string.settings_update_current
+                        -1 -> R.string.settings_update_ahead
+                        else -> R.string.settings_update_unknown
+                    }
+                    when (message) {
+                        R.string.settings_update_available ->
+                            getString(message, latestVersion, installedVersion)
+                        R.string.settings_update_current -> getString(message, latestVersion)
+                        R.string.settings_update_ahead ->
+                            getString(message, installedVersion, latestVersion)
+                        else -> getString(message, latestVersion, installedVersion)
+                    }
+                }
+            }
+        }.start()
     }
 
     private fun saveOverlay(next: OverlayStyle) {
@@ -300,18 +299,67 @@ class SettingsActivity : BatteryNgActivity() {
             startOverlay()
             return
         }
-        startOverlayAfterPermission = true
-        Toast.makeText(this, R.string.overlay_permission_missing, Toast.LENGTH_LONG).show()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            showOverlayPermissionHelp()
+        } else {
+            openOverlayPermissionSettings()
+        }
+    }
+
+    private fun showOverlayPermissionHelp() {
+        val restrictedSettingsPossible = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
+        AlertDialog.Builder(this)
+            .setTitle(R.string.overlay_permission_title)
+            .setMessage(
+                if (restrictedSettingsPossible) R.string.overlay_permission_steps_restricted
+                else R.string.overlay_permission_steps
+            )
+            .setPositiveButton(
+                if (restrictedSettingsPossible) R.string.overlay_app_info_open
+                else R.string.overlay_permission_open
+            ) { _, _ ->
+                if (restrictedSettingsPossible) openOverlayAppInfo()
+                else openOverlayPermissionSettings()
+            }
+            .setNegativeButton(android.R.string.cancel, null)
+            .apply {
+                if (restrictedSettingsPossible) {
+                    setNeutralButton(R.string.overlay_permission_open) { _, _ ->
+                        openOverlayPermissionSettings()
+                    }
+                }
+            }
+            .show()
+    }
+
+    private fun openOverlayAppInfo() {
+        openOverlaySettingsAfterAppInfo = true
         try {
             startActivity(
                 Intent(
-                    Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-                    Uri.parse("package:" + packageName),
+                    Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                    Uri.fromParts("package", packageName, null),
                 )
             )
         } catch (_: ActivityNotFoundException) {
+            openOverlaySettingsAfterAppInfo = false
+            Toast.makeText(this, R.string.overlay_permission_unavailable, Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun openOverlayPermissionSettings() {
+        startOverlayAfterPermission = true
+        try {
+            val intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION).apply {
+                // Android 11+ ignores package data and always opens the app list.
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+                    data = Uri.fromParts("package", packageName, null)
+                }
+            }
+            startActivity(intent)
+        } catch (_: ActivityNotFoundException) {
             startOverlayAfterPermission = false
-            Toast.makeText(this, R.string.overlay_permission_missing, Toast.LENGTH_LONG).show()
+            Toast.makeText(this, R.string.overlay_permission_unavailable, Toast.LENGTH_LONG).show()
         }
     }
 
@@ -330,11 +378,13 @@ class SettingsActivity : BatteryNgActivity() {
         )
     }
 
-    private fun openUsageAccessSettings() {
+    private fun openAndroidBatteryUsage() {
         try {
-            startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
+            startActivity(Intent(Intent.ACTION_POWER_USAGE_SUMMARY))
         } catch (_: ActivityNotFoundException) {
-            Toast.makeText(this, R.string.top_apps_permission_unavailable, Toast.LENGTH_LONG).show()
+            Toast.makeText(this, R.string.android_battery_usage_unavailable, Toast.LENGTH_LONG).show()
+        } catch (_: SecurityException) {
+            Toast.makeText(this, R.string.android_battery_usage_unavailable, Toast.LENGTH_LONG).show()
         }
     }
 
@@ -352,5 +402,6 @@ class SettingsActivity : BatteryNgActivity() {
 
     companion object {
         private const val STATE_PENDING_OVERLAY = "pending_overlay_start"
+        private const val STATE_PENDING_APP_INFO = "pending_overlay_app_info"
     }
 }
